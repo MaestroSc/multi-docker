@@ -1,0 +1,24 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t maestrosc/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true maestrosc/react-test npm test
+
+after_success:
+  - docker build -t maestrosc/multi-client ./client
+  - docker build -t maestrosc/multi-nginx ./nginx
+  - docker build -t maestrosc/multi-server ./server
+  - docker build -t maestrosc/multi-worker ./worker
+
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+  - docker push maestrosc/multi-client
+  - docker push maestrosc/multi-nginx
+  - docker push maestrosc/multi-server
+  - docker push maestrosc/multi-worker
+
+language: generic
