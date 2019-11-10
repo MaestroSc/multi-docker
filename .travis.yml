@@ -21,4 +21,5 @@ after_success:
   - docker push maestrosc/multi-server
   - docker push maestrosc/multi-worker
 
+
 language: generic
