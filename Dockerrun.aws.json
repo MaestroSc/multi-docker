@@ -18,6 +18,12 @@
       "image": "maestrosc/multi-worker",
       "hostname": "worker",
       "essential": false
+    },
+    {
+      "name": "nginx",
+      "image": "maestrosc/multi-nginx",
+      "hostname": "nginx",
+      "essential": true
     }
   ]
 }
